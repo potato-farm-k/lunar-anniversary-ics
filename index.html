@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>음력 기념일 ICS 생성기</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="intro" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Lunar Anniversary ICS</p>
+          <h1 id="page-title">음력 기념일 캘린더 파일 생성기</h1>
+          <p class="lede">
+            음력 월/일을 입력하면 시작 음력 연도부터 2072년까지의 양력 날짜를 계산해 하나의 ICS 파일로 만듭니다.
+          </p>
+        </div>
+        <div class="status-panel">
+          <span class="status-number" id="event-count">0</span>
+          <span class="status-label">누적 이벤트</span>
+        </div>
+      </section>
+
+      <section class="workspace" aria-label="기념일 생성 도구">
+        <form class="entry-form" id="anniversary-form">
+          <div class="form-grid">
+            <label>
+              <span>기념일 이름</span>
+              <input id="title" name="title" type="text" placeholder="예: 부모님 생신" autocomplete="off" required>
+            </label>
+            <label>
+              <span>시작 음력 연도</span>
+              <input id="start-year" name="startYear" type="number" min="1900" max="2072" step="1" required>
+            </label>
+            <label>
+              <span>음력 월</span>
+              <input id="lunar-month" name="lunarMonth" type="number" min="1" max="12" step="1" required>
+            </label>
+            <label>
+              <span>음력 일</span>
+              <input id="lunar-day" name="lunarDay" type="number" min="1" max="30" step="1" required>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="secondary" type="button" id="clear-all">목록 비우기</button>
+            <button type="submit">기념일 추가</button>
+          </div>
+        </form>
+
+        <div class="content-grid">
+          <section class="panel" aria-labelledby="list-title">
+            <div class="panel-header">
+              <div>
+                <h2 id="list-title">누적 목록</h2>
+                <p>추가한 항목은 브라우저 안에 보관되며, 다운로드할 때 하나의 파일로 합쳐집니다.</p>
+              </div>
+              <button class="download-button" type="button" id="download-ics" disabled>ICS 다운로드</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>기념일</th>
+                    <th>음력</th>
+                    <th>기간</th>
+                    <th>생성</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="anniversary-list">
+                  <tr class="empty-row">
+                    <td colspan="5">아직 추가된 기념일이 없습니다.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="panel preview-panel" aria-labelledby="preview-title">
+            <div class="panel-header compact">
+              <div>
+                <h2 id="preview-title">양력 날짜 미리보기</h2>
+                <p id="preview-caption">기념일을 추가하면 첫 8개 날짜가 표시됩니다.</p>
+              </div>
+            </div>
+            <ol class="preview-list" id="preview-list"></ol>
+            <p class="note">
+              윤달은 제외하고 평달만 계산합니다. 날짜가 없는 음력일은 해당 연도 이벤트에서 제외됩니다.
+            </p>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

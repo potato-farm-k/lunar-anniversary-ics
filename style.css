@@ -1,0 +1,342 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f7f4;
+  --surface: #ffffff;
+  --ink: #1d2329;
+  --muted: #65717c;
+  --line: #d8dfd6;
+  --accent: #156f73;
+  --accent-dark: #0d4f52;
+  --danger: #9c3b3b;
+  --soft: #e8f1ec;
+  --shadow: 0 18px 45px rgba(26, 38, 31, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(21, 111, 115, 0.08), transparent 34%),
+    linear-gradient(180deg, #fbfcf9 0%, var(--bg) 100%);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 44px 0;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  max-width: 780px;
+  margin-bottom: 12px;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.lede {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.status-panel {
+  display: grid;
+  place-items: center;
+  min-height: 132px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.status-number {
+  display: block;
+  color: var(--accent-dark);
+  font-size: 2.8rem;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.status-label {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.workspace {
+  display: grid;
+  gap: 18px;
+}
+
+.entry-form,
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow);
+}
+
+.entry-form {
+  padding: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) repeat(3, minmax(130px, 1fr));
+  gap: 14px;
+}
+
+label span {
+  display: block;
+  margin-bottom: 8px;
+  color: #35414a;
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+
+input {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #cbd4ca;
+  border-radius: 6px;
+  padding: 0 13px;
+  background: #fff;
+  color: var(--ink);
+}
+
+input:focus {
+  border-color: var(--accent);
+  outline: 3px solid rgba(21, 111, 115, 0.18);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+button {
+  min-height: 44px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 16px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--accent-dark);
+}
+
+button:disabled {
+  background: #aeb9b0;
+  cursor: not-allowed;
+}
+
+button.secondary {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: #334047;
+}
+
+button.secondary:hover {
+  background: var(--soft);
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(300px, 0.85fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+  padding: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.panel-header.compact {
+  display: block;
+}
+
+h2 {
+  margin-bottom: 6px;
+  font-size: 1.15rem;
+}
+
+.panel-header p {
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.download-button {
+  flex: 0 0 auto;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 720px;
+}
+
+th,
+td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+  font-size: 0.93rem;
+}
+
+th {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.empty-row td {
+  padding: 28px 16px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.delete-button {
+  min-height: 34px;
+  padding: 0 11px;
+  border: 1px solid rgba(156, 59, 59, 0.28);
+  background: #fff;
+  color: var(--danger);
+}
+
+.delete-button:hover {
+  background: #f7e9e9;
+}
+
+.preview-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 18px 6px 42px;
+}
+
+.preview-list:empty::before {
+  content: "생성된 날짜가 여기에 표시됩니다.";
+  display: block;
+  margin-left: -24px;
+  color: var(--muted);
+}
+
+.preview-list li {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.preview-list li:last-child {
+  border-bottom: 0;
+}
+
+.note {
+  margin: 8px 18px 18px;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--soft);
+  color: #47564e;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .intro,
+  .content-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .status-panel {
+    min-height: 100px;
+  }
+
+  .panel-header,
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    width: min(100% - 22px, 1180px);
+    padding: 26px 0;
+  }
+
+  h1 {
+    font-size: 2.05rem;
+  }
+
+  .entry-form,
+  .panel-header {
+    padding: 14px;
+  }
+}

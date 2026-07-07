@@ -3,6 +3,7 @@
 
   const END_YEAR = 2072;
   const STORAGE_KEY = "lunar-anniversary-ics-items";
+  const UTF8_ENCODER = new TextEncoder();
   const formatter = new Intl.DateTimeFormat("ko-KR-u-ca-dangi", {
     year: "numeric",
     month: "long",
@@ -84,7 +85,7 @@
     document.body.append(anchor);
     anchor.click();
     anchor.remove();
-    URL.revokeObjectURL(url);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
   });
 
   clearButton.addEventListener("click", () => {
@@ -123,7 +124,7 @@
         lunarMonth: item.lunarMonth,
         lunarDay: item.lunarDay,
         date: solar,
-        uid: `${slug(item.title)}-${lunarYear}-${item.lunarMonth}-${item.lunarDay}@lunar-anniversary-ics`
+        uid: `${uidToken(item)}-${lunarYear}-${item.lunarMonth}-${item.lunarDay}@lunar-anniversary-ics`
       });
     }
     return events;
@@ -275,12 +276,24 @@
   function foldIcsLines(lines) {
     return lines.flatMap((line) => {
       const chunks = [];
-      let rest = line;
-      while (rest.length > 75) {
-        chunks.push(rest.slice(0, 75));
-        rest = " " + rest.slice(75);
+      let chunk = "";
+      let chunkBytes = 0;
+
+      for (const character of line) {
+        const characterBytes = UTF8_ENCODER.encode(character).length;
+        const byteLimit = chunks.length ? 74 : 75;
+
+        if (chunk && chunkBytes + characterBytes > byteLimit) {
+          chunks.push(chunks.length ? ` ${chunk}` : chunk);
+          chunk = character;
+          chunkBytes = characterBytes;
+        } else {
+          chunk += character;
+          chunkBytes += characterBytes;
+        }
       }
-      chunks.push(rest);
+
+      chunks.push(chunks.length ? ` ${chunk}` : chunk);
       return chunks;
     });
   }
@@ -310,5 +323,9 @@
     return encodeURIComponent(value.trim().toLowerCase())
       .replace(/%/g, "")
       .slice(0, 48) || "anniversary";
+  }
+
+  function uidToken(item) {
+    return item.id ? slug(String(item.id)) : slug(item.title);
   }
 })();
